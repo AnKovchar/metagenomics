@@ -1,0 +1,6 @@
+import pandas as pd
+import numpy as np
+
+celia = pd.read_csv('celiac_good_data.csv')
+celia = celia.drop('Unnamed: 0', axis=1)
+celia
