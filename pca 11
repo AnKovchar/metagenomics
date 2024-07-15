@@ -1,0 +1,29 @@
+import numpy as np
+import pandas as pd
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+celiac = pd.read_csv('celiac_good_data.csv')
+celiac = celiac.drop('Unnamed: 0', axis = 1)
+celiac
+
+ms = pd.read_csv('ms_good_data.csv')
+ms = ms.drop('Unnamed: 0', axis = 1)
+ms
+
+features = celiac.columns
+x = celiac.loc[:, features].values
+x = StandardScaler().fit_transform(x)
+
+pca = PCA(n_components=2)  # You can change the number of components
+principalComponents = pca.fit_transform(x)
+principalDf = pd.DataFrame(data=principalComponents, columns=['principal component 1', 'principal component 2'])
+
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8, 6))
+plt.scatter(principalDf['principal component 1'], principalDf['principal component 2'])
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.title('2 Component PCA')
+plt.show()
